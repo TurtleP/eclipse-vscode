@@ -1,0 +1,9 @@
+class Test
+
+    new: (str) =>
+        @str = str
+
+    echo: =>
+        print(@str)
+
+Test("Hello World!")\echo!

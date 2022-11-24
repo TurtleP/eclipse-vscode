@@ -1,0 +1,119 @@
+{
+  "name": "eclipse",
+  "displayName": "Eclipse",
+  "description": "yuescript builder",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:eclipse.build"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "eclipse.build",
+        "title": "Eclipse: Build Project",
+        "icon": "$(play)"
+      }
+    ],
+    "configuration": {
+      "title": "Eclipse",
+      "properties": {
+        "eclipse.compactLuaCode": {
+          "description": "Generate compact Lua code.",
+          "type": "boolean",
+          "default": false
+        },
+        "eclipse.copyAltFiles": {
+          "description": "Copy files that match specified file extensions",
+          "type": "boolean",
+          "default": false
+        },
+        "eclipse.includePatterns": {
+          "description": "Copies files that you might also want to the output directory.",
+          "type": "array",
+          "default": [
+            "png",
+            "jpg",
+            "jpeg",
+            "ttf"
+          ]
+        },
+        "eclipse.ignorePatterns": {
+          "description": "List of regex patterns to ignore files and folders when building.",
+          "type": "array",
+          "default": [
+            "%.git"
+          ]
+        },
+        "eclipse.outputDirectory": {
+          "description": "Name of the directory to output files to.",
+          "type": "string",
+          "default": "build",
+          "minLength": 1
+        },
+        "eclipse.saveOnCompile": {
+          "description": "Saves all files before compiling to Lua.",
+          "type": "boolean",
+          "default": true
+        },
+        "eclipse.saveStdoutLog": {
+          "description": "When enabled, yuescript's output to an Output Channel.",
+          "type": "boolean",
+          "default": false
+        },
+        "eclipse.sourceDirectory": {
+          "description": "Name of the directory containing source files.",
+          "type": "string",
+          "default": "source"
+        },
+        "eclipse.useTabsOrSpaces": {
+          "description": "Specifies whether to use tabs or spaces when compiling to Lua code.",
+          "type": "string",
+          "default": "tabs",
+          "enum": [
+            "tabs",
+            "spaces"
+          ],
+          "enumDescriptions": [
+            "Compile to Lua code with tabs.",
+            "Compile to Lua code with spaces."
+          ]
+        },
+        "eclipse.yuescriptPath": {
+          "description": "Path to yuescript. If the path to the binary is in PATH, then use the name of the binary.",
+          "type": "string",
+          "default": "yue"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.73.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.26.0",
+    "glob": "^8.0.3",
+    "gulp": "^4.0.2",
+    "gulp-ignore": "^3.0.0",
+    "mocha": "^10.1.0",
+    "typescript": "^4.8.4"
+  }
+}
