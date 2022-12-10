@@ -17,8 +17,11 @@
     "commands": [
       {
         "command": "eclipse.build",
-        "title": "Eclipse: Build Project",
-        "icon": "$(play)"
+        "title": "Eclipse: Build Project"
+      },
+      {
+        "command": "eclipse.init",
+        "title": "Eclipse: New LÖVE Project"
       }
     ],
     "configuration": {

@@ -1,9 +1,14 @@
-import { window, workspace, commands, ExtensionContext, OutputChannel } from 'vscode';
+import { window, workspace, commands, ExtensionContext, OutputChannel, TextDocumentContentProvider, Uri } from 'vscode';
 import { basename, resolve } from 'path';
 
 import { spawnSync } from 'child_process';
+
 const gulp = require('gulp');
 const gulpIgnore = require('gulp-ignore');
+
+import { getContent } from "./love"
+import { writeFileSync } from 'fs';
+import { join } from 'path';
 
 function copyOtherFiles(cwd: string, includePatterns: ReadonlyArray<string>, ignorePatterns: ReadonlyArray<string>, output: string) {
     var gulpData = gulp.src(`${cwd}/**/*.*(${includePatterns.join('|')})`);
@@ -22,12 +27,44 @@ function getConfigItem<T>(name: string) {
     return workspace.getConfiguration('eclipse').get(name) as T;
 }
 
+const myProvider = new (class implements TextDocumentContentProvider {
+    provideTextDocumentContent(uri: Uri): string {
+        return `love.load = ->
+    return
+
+love.update = (dt) ->
+    return
+
+love.draw = ->
+    return
+
+love.gamepadpressed = (joy, button) ->
+    return
+
+love.gamepadreleased = (joy, button) ->
+    return
+
+love.gamepadaxis = (joy, axis, button) ->
+    return
+
+love.touchpressed = (id, x, y, dx, dy, pressure) ->
+    return
+
+love.touchreleased = (id, x, y, dx, dy, pressure) ->
+    return
+
+love.touchmoved = (id, x, y, dx, dy, pressure) ->
+    return
+`;
+    }
+})();
+
 export function activate(context: ExtensionContext) {
     const output: OutputChannel = window.createOutputChannel("Eclipse");
     output.show();
 
 
-    let disposable = commands.registerCommand('eclipse.build', () => {
+    let disposableBuildCommand = commands.registerCommand('eclipse.build', () => {
         const editor = window.activeTextEditor;
 
         /* if no workspace or folder file is opened, we return and show an error */
@@ -38,7 +75,6 @@ export function activate(context: ExtensionContext) {
 
 
         const resource = editor.document.uri;
-
 
         /* settings variables */
         const compactLuaCode = getConfigItem<boolean>('compactLuaCode') ? '-m' : '';
@@ -100,7 +136,24 @@ export function activate(context: ExtensionContext) {
         }
     });
 
-    context.subscriptions.push(disposable);
+    let disposableInitCommand = commands.registerCommand('eclipse.init', async () => {
+        const folders = workspace.workspaceFolders;
+        if (!folders) {
+            window.showErrorMessage(`No folder is currently open.`);
+        } else {
+            let uri = Uri.parse(`eclipse:${folders[0].uri.path}/main.yue`);
+
+            let document = await workspace.openTextDocument(uri);
+            document.save();
+
+            await window.showTextDocument(document, { preview: false });
+        }
+    })
+
+    workspace.registerTextDocumentContentProvider("eclipse", myProvider);
+
+    context.subscriptions.push(disposableBuildCommand);
+    context.subscriptions.push(disposableInitCommand);
 }
 
 // This method is called when your extension is deactivated
