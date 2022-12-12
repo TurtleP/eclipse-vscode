@@ -112,9 +112,9 @@
           ]
         },
         "eclipse.yuescriptPath": {
-          "description": "Path to yuescript. If the path to the binary is in PATH, then use the name of the binary.",
+          "description": "Path to yuescript. Can be blank if in PATH.",
           "type": "string",
-          "default": "yue"
+          "default": ""
         }
       }
     }

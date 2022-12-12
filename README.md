@@ -1,71 +1,52 @@
 # eclipse README
 
-This is the README for your extension "eclipse". After writing up a brief description, we recommend including the following sections.
+This extension allows users of [the yuescript language](https://yuescript.org/) to compile their files to Lua easily. It also comes with support for [the LÖVE framework](https://love2d.org).
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Compiling yuescript files to lua with options for:
 
-For example if there is an image subfolder under your extension project workspace:
+  - Generating minified code
+  - Using tabs versus spaces
+  - Copying of other resource files (e.g. ttf, png)
 
-\!\[feature X\]\(images/feature-x.png\)
+- Generating a new main.yue file for LÖVE projects
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+  - This can be configured in many different ways
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+You will need the yuescript program installed. It can be [found here](https://github.com/pigpigyyy/Yuescript/releases/latest). This extension can find the executable easily when its location is placed in your OS's PATH. Alternatively, you can give the full path to the binary in the settings.
+
+## Extension Commands
+
+This extension contributes the following commands:
+
+- Eclipse: Build Project: Compile the current yue files to lua from the configured source directory to the configured output directory
+- Eclipse: New LÖVE Project: Create a `main.yue` file based on a specific configuration. See `eclipse.mainFileContents` below.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `eclipse.compactLuaCode`: Enable/disable compact Lua code generation.
+- `eclipse.copyAltFiles`: Enable/disable copying files of matched extensions from `eclipse.includePatterns` to the configured output directory.
+- `eclipse.includePatterns`: Array of file extensions that are valid for `eclipse.copyAltFiles`.
+- `eclipse.ignorePatterns`: Array of regex patterns to ignore specific files and folders.
+- `eclipse.mainFileContent`: String enum to determine how to generate `main.yue`.
+- `eclipse.outputDirectory`: Name of the directory to output both compiled Lua files and resources matching `eclipse.includePatterns` to.
+- `eclipse.saveOnCompile`: Enable/disable saving all files when compiling.
+- `eclipse.saveStdoutLog`: Enable/disable yuescript output to the dedicated Output Channel.
+- `eclipse.sourceDirectory`: Name of the directory containing source code and resources.
+- `eclipse.useTabsOrSpaces`: String enum to determine if tabs or spaces are used for Lua file compilation.
+- `eclipse.yuescriptPath`: Path to the yuescript binary, can be empty if in PATH.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+N/A
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.1.0
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial Release

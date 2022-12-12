@@ -57,7 +57,12 @@ export function activate(context: ExtensionContext) {
         const ignorePatterns = getConfigItem<Array<string>>('ignorePatterns');
         const saveAll = getConfigItem<boolean>('saveOnCompile');
         const useSpaces = getConfigItem<string>('useTabsOrSpaces') === 'spaces' ? '-s' : '';
-        const yuescriptPath = getConfigItem<string>('yuescriptPath');
+
+        var yuescriptPath = getConfigItem<string>('yuescriptPath');
+
+        if (yuescriptPath === "") {
+            yuescriptPath = "yue";
+        }
 
         if (resource.scheme === 'file') {
             const root = workspace.getWorkspaceFolder(resource);
