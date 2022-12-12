@@ -54,6 +54,29 @@
             "%.git"
           ]
         },
+        "eclipse.mainFileContent": {
+          "description": "Specifies how the content of main.lua is generated.",
+          "type": "string",
+          "default": "all",
+          "enum": [
+            "all",
+            "simple",
+            "desktop",
+            "controller",
+            "desktop-multi",
+            "mobile",
+            "homebrew"
+          ],
+          "enumDescriptions": [
+            "Generate all callbacks",
+            "Main callbacks (load, update, draw)",
+            "Desktop (mouse and keyboard)",
+            "Desktop (controller only)",
+            "Desktop (mouse, keyboard and controller support)",
+            "Mobile (touch)",
+            "Nintendo Console (3DS, Switch, Wii U)"
+          ]
+        },
         "eclipse.outputDirectory": {
           "description": "Name of the directory to output files to.",
           "type": "string",

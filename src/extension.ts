@@ -29,40 +29,13 @@ function getConfigItem<T>(name: string) {
 
 const myProvider = new (class implements TextDocumentContentProvider {
     provideTextDocumentContent(uri: Uri): string {
-        return `love.load = ->
-    return
-
-love.update = (dt) ->
-    return
-
-love.draw = ->
-    return
-
-love.gamepadpressed = (joy, button) ->
-    return
-
-love.gamepadreleased = (joy, button) ->
-    return
-
-love.gamepadaxis = (joy, axis, button) ->
-    return
-
-love.touchpressed = (id, x, y, dx, dy, pressure) ->
-    return
-
-love.touchreleased = (id, x, y, dx, dy, pressure) ->
-    return
-
-love.touchmoved = (id, x, y, dx, dy, pressure) ->
-    return
-`;
+        return getContent(getConfigItem<string>('mainFileContent'));
     }
 })();
 
 export function activate(context: ExtensionContext) {
     const output: OutputChannel = window.createOutputChannel("Eclipse");
     output.show();
-
 
     let disposableBuildCommand = commands.registerCommand('eclipse.build', () => {
         const editor = window.activeTextEditor;
@@ -144,11 +117,9 @@ export function activate(context: ExtensionContext) {
             let uri = Uri.parse(`eclipse:${folders[0].uri.path}/main.yue`);
 
             let document = await workspace.openTextDocument(uri);
-            document.save();
-
             await window.showTextDocument(document, { preview: false });
         }
-    })
+    });
 
     workspace.registerTextDocumentContentProvider("eclipse", myProvider);
 
