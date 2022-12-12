@@ -2,7 +2,8 @@
   "name": "eclipse",
   "displayName": "Eclipse",
   "description": "yuescript builder",
-  "version": "0.0.1",
+  "repository": "https://github.com/TurtleP/eclipse-vscode",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.73.0"
   },
